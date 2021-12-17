@@ -31,7 +31,7 @@
 }
 /* ! --------------------------------- navbar --------------------------------- ! */
 .github-btn {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     text-decoration: none;
     color: var(--primary-blue);
     background: var(--white);
@@ -40,7 +40,7 @@
     transition: .3s;
 }
 .github-btn svg {
-    margin-left: 13px;
+    margin-left: 11px;
 }
 .github-btn:hover {
     filter: brightness(0.9);
@@ -54,7 +54,7 @@
     color: var(--light-blue);
 }
 .sign-up-sign-in-box {
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 .vertical-bar {
     margin: 0 15px;

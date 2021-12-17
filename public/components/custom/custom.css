@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
 @import url(../reset-css/reset.css);
 
 :root {
@@ -5,7 +6,9 @@
     --light-blue : #B4CFFD;
     --white: #FFFFFF;
 }
-
+* {
+    font-family: 'Comfortaa', cursive !important;
+}
 .d-flex {
     display: flex;
 }
