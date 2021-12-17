@@ -5,6 +5,9 @@
     height: 500px;
     position: relative;
     padding: 25px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .header::before {
     content: '';
@@ -63,4 +66,90 @@
 .sign-up-sign-in-box a {
     text-decoration: none;
     color: var(--white);
+}
+/* ! ------------------------------- main header ------------------------------ ! */
+.main-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.main-header-title {
+    font-size: 2.5rem;
+    color: var(--white);
+}
+/* ! ------------------------------- search bar ------------------------------- ! */
+.search-box {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+.search-bar {
+    background: var(--white);
+    width: 50%;
+    height: 60px;
+    border-radius: 16px;
+    padding: 0 10px 0 12px;
+    position: relative;
+    box-shadow: 0 10px 60px -20px var(--white);
+}
+.search-icon {
+    margin-bottom: -3px;
+}
+.search-input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0 200px 0 13px;
+    color: var(--primary-blue);
+    font-size: 1.2rem;
+}
+.search-input::placeholder {
+    font-size: 1.2rem;
+    color: #000000;
+}
+.search-order {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: var(--primary-blue);
+    position: absolute;
+    right: 10px;
+    transition: .3s;
+}
+.search-order::before {
+    content: "Search by latest";
+    margin-right: 10px;
+    margin-left: 3px;
+    font-size: 1rem;
+    color: var(--white);
+}
+.search-order span:first-child {
+    color: var(--white);
+}
+.arrow-down-order {
+    margin: 0 0 -4px 0;
+}
+.search-order:hover {
+    filter: brightness(0.9);
+}
+.search-submit {
+    background: var(--primary-blue);
+    padding: 0;
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-left: 20px;
+    box-shadow: 0 10px 20px -4px var(--primary-blue);
+    transition: .2s;
+}
+.search-submit:hover {
+    filter: brightness(0.9);
 }
