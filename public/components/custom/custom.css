@@ -2,9 +2,12 @@
 @import url(../reset-css/reset.css);
 
 :root {
-    --primary-blue : #3274E4;
+    --primary-blue : #3274e4;
     --light-blue : #B4CFFD;
     --white: #FFFFFF;
+    --gray: #EBEBEB;
+    --wallpaper-border: #c5c5c5;
+    --wallpaper-bg: #f0f0f0;
 }
 * {
     font-family: 'Comfortaa', cursive !important;
