@@ -1,15 +1,21 @@
 const wallpaper_wrap = document.getElementById("wallpaper-wrap")
+const searchBar = document.getElementById("search-input")
+const searchSubmit = document.querySelector(".search-submit")
 
 const API = {
     client_id: "QctSFB0DBMdKf-hcrj4HtE2s7HSl3313mvrRUa8Iauw",
-    location: "https://api.unsplash.com/"
+    location: "https://api.unsplash.com/",
+    order_by: "popular"
 }
 
 //? call the Api and list the images in dom
-const listPhotoes = (per_page = 10) => {
+const listPhotoes = (per_page = "10") => {
     const API_Link = `${API.location}/photos?client_id=${API.client_id}&per_page=${per_page}`
-    
-    //? fetch api to get responses ( images )
+    callApi(API_Link, createWallpaper_box)
+}
+
+//? fetch api to get responses ( images )
+const callApi = (API_Link, callBack) => {
     fetch(API_Link)
         .then(response => {
             if (response.status === 200) {
@@ -19,11 +25,22 @@ const listPhotoes = (per_page = 10) => {
             }
         })
         .then(response => {
+            wallpaper_wrap.innerHTML = ""
             const Fragment = new DocumentFragment()
-            Array.from(response).forEach(obj => {
-                Fragment.append(createWallpaper_box(obj))
-            })
-            wallpaper_wrap.append(Fragment)
+            
+            const { results } = response
+            
+            if (results) {
+                Array.from(results).forEach(obj => {
+                    Fragment.append(callBack(obj))
+                })
+                wallpaper_wrap.append(Fragment)
+            } else {
+                Array.from(response).forEach(obj => {
+                    Fragment.append(callBack(obj))
+                })
+                wallpaper_wrap.append(Fragment)
+            }
         })
         .catch(err => console.error(err))
 }
@@ -35,7 +52,7 @@ const createWallpaper_box = (responseObject) => {
         <div class="wallpaper-box">
             <!-- ! ---------------------------- wallpaper-img ---------------------------- ! -->
             <div>
-                <img src="${responseObject.urls.full}"  alt="" class="wallpaper">
+                <img src="${responseObject.urls.full}" loading="lazy"  alt="" class="wallpaper">
             </div>
             <div>
                 <!-- ! ------------------------ wallpaper description ------------------------ ! -->
@@ -73,4 +90,11 @@ const createWallpaper_box = (responseObject) => {
     return section
 }
 
-window.addEventListener("load", () => listPhotoes(10))
+//? search by title: latest , oldest, popular
+const searchByHeading = (heading = "latest", per_page = 10, searchQuery) => {
+    const API_Link = `${API.location}/search/photos?client_id=${API.client_id}&per_page=${per_page}&query=${searchQuery}&order_by=${heading}`
+    callApi(API_Link, createWallpaper_box)
+}
+
+window.addEventListener("load", () => listPhotoes())
+searchSubmit.addEventListener("click", () => searchByHeading(API.order_by, 10, searchBar.value))
