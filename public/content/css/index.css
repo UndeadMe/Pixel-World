@@ -237,8 +237,10 @@
 .main {
     padding: 0 40px;
     margin: 125px 0 150px 0;
+    justify-content: center;
 }
 .main-wrap {
+    max-width: 1990px;
     columns: 3;
     box-sizing: border-box;
     column-gap: 40px;
