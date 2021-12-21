@@ -120,10 +120,11 @@
     font-size: 1.2rem;
     color: #000000;
 }
+/* ! ------------------------------ search order ------------------------------ ! */
 .search-order {
     border: none;
     outline: none;
-    padding: 10px;
+    padding: 8px;
     border-radius: 10px;
     cursor: pointer;
     background: var(--primary-blue);
@@ -131,22 +132,61 @@
     right: 10px;
     transition: .3s;
 }
-.search-order::before {
-    content: "Search by latest";
-    margin-right: 10px;
-    margin-left: 3px;
+.search-order-text {
+    color: var(--white);
+    margin: 0 5px;
     font-size: 1rem;
-    color: var(--white);
-}
-.search-order span:first-child {
-    color: var(--white);
 }
 .arrow-down-order {
-    margin: 0 0 -4px 0;
+    transition: .4s;
 }
 .search-order:hover {
-    filter: brightness(0.9);
+    background: var(--dark-blue);
 }
+/* ! ---------------------------- search order menu --------------------------- ! */
+.search-order-menu {
+    position: absolute;
+    top: 50px;
+    z-index: 9999;
+    width: 100%;
+    border-radius: 20px;
+    background: var(--primary-blue);
+    box-shadow: rgba(100, 100, 111, 0.9) 0px 7px 29px 0px;
+    opacity: 0;
+    visibility: hidden;
+    transition: .4s;
+}
+.search-order-menu ul {
+    padding: 0 12px;
+    cursor: default;
+}
+.search-order-menu-item {
+    margin-top: 12px;
+    border-radius: 10px;
+    background: var(--dark-blue);
+    padding: 10px;
+    color: var(--white);
+    cursor: pointer;
+    transition: .4s;
+    font-size: 1rem;
+}
+.search-order-menu-item:last-child {
+    margin-bottom: 12px;
+}
+.search-order-menu-item:hover {
+    background: var(--gray);
+    color: var(--dark-blue);
+    box-shadow: 0 0 20px -2px rgba(0, 0, 0, 0.3);
+}
+.search-order:focus .search-order-menu {
+    visibility: visible;
+    opacity: 1;
+    top: 65px;
+}
+.search-order:focus .arrow-down-order {
+    transform: rotate(180deg);
+}
+/* ! ------------------------------ search submit ----------------------------- ! */
 .search-submit {
     background: var(--primary-blue);
     padding: 0;
@@ -156,11 +196,11 @@
     border-radius: 15px;
     cursor: pointer;
     margin-left: 20px;
-    box-shadow: 0 10px 20px -4px var(--primary-blue);
+    box-shadow: 0 10px 30px -3px var(--primary-blue);
     transition: .2s;
 }
 .search-submit:hover {
-    filter: brightness(0.9);
+    background: var(--dark-blue);
 }
 /* ! ------------------------------ footer header ----------------------------- ! */
 .created-by__title {
