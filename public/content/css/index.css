@@ -210,6 +210,11 @@
     border-radius: 30px;
     margin-bottom: 40px;
     transition: .3s;
+    display: flex;
+    flex-direction: column;
+}
+.wallpaper-box > * {
+    z-index: 2;
 }
 .wallpaper-box::before {
     content: '';
@@ -218,22 +223,10 @@
     width: 100%;
     height: 100%;
     border-radius: 30px;
-    z-index: -1;
+    z-index: 1;
     clip-path: circle(0 at 0 0);
     opacity: 1;
-    transition: .7s;
-}
-.wallpaper-box::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 30px;
-    z-index: 2;
-    clip-path: circle(0 at 0 0);
-    opacity: 0.5;
-    transition: .7s;
+    transition: 0.8s;
 }
 .wallpaper {
     width: 100%;
@@ -250,11 +243,6 @@
     background: var(--white);
     clip-path: circle(200% at 0 0);
     border: 1px solid var(--wallpaper-border);
-}
-.wallpaper-box:hover::after {
-    background: var(--white);
-    clip-path: circle(200% at 0 0);
-    opacity: 0;
 }
 .wallpaper-desc {
     visibility: hidden;
