@@ -13,13 +13,18 @@ const API = {
         search_page: 30,
         default_page: 30
     },
-    order_by: "popular",
+    order_by: "latest",
     now_page: "default_page",
     search_text: ""
 }
 
 //? call the Api and list the images in dom
 const listPhotoes = () => {
+    if (API.now_page === "search_page") { 
+        API.now_page = "default_page"
+        API.pages.search_page = 1
+    }
+
     const { default_page:per_page } =  API.per_page
     const { default_page:number_page } = API.pages
 
@@ -90,31 +95,37 @@ const createWallpaper_box = (responseObject) => {
 
 //? search by title: latest , oldest, popular
 const searchByHeading = (searchQuery) => {
-    if (API.now_page !== "search_page") {
-        API.now_page = "search_page"
-        API.pages.default_page = 1
-        wallpaper_wrap.innerHTML = ""
-    } else {
-        if (API.search_text !== searchQuery) {
-            API.pages.search_page = 1
+    if (searchQuery.trim().length !== 0) {
+        if (API.now_page !== "search_page") {
+            API.now_page = "search_page"
+            API.pages.default_page = 1
             wallpaper_wrap.innerHTML = ""
+        } else {
+            if (API.search_text !== searchQuery) {
+                API.pages.search_page = 1
+                wallpaper_wrap.innerHTML = ""
+            }
         }
+    
+        API.search_text = searchQuery
+    
+        const { search_page:per_page } =  API.per_page
+        const { search_page:number_page } = API.pages
+        const { order_by:heading } = API
+    
+        const API_Link = `${API.location}search/photos?client_id=${API.client_id}&per_page=${per_page}&query=${API.search_text}&order_by=${heading}&page=${number_page}`
+        callApi(API_Link, createWallpaper_box)
+    } else {
+        wallpaper_wrap.innerHTML = ""
+        listPhotoes()
     }
-
-    API.search_text = searchQuery
-
-    const { search_page:per_page } =  API.per_page
-    const { search_page:number_page } = API.pages
-    const { order_by:heading } = API
-
-    const API_Link = `${API.location}search/photos?client_id=${API.client_id}&per_page=${per_page}&query=${API.search_text}&order_by=${heading}&page=${number_page}`
-    callApi(API_Link, createWallpaper_box)
 }
 
 //? check scroll of document to load new images
 const checkScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement
     if (scrollTop + clientHeight >= scrollHeight - 5) {
+        console.log(1)
         if (API.now_page === "default_page") {
             API.pages.default_page++
             listPhotoes()
