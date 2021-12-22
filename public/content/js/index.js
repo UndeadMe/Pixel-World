@@ -55,7 +55,7 @@ const createWallpaper_box = (responseObject) => {
     //? create box as a text 
     const new_wallpaper_box = `
         <div>
-            <img src="${responseObject.urls.regular}" loading="lazy"  alt="" class="wallpaper">
+            <img src="${responseObject.urls.small}" loading="lazy"  alt="" class="wallpaper">
         </div>
         <div>
             <div class="wallpaper-desc d-flex justify-content-between align-items-center">
@@ -93,9 +93,14 @@ const searchByHeading = (searchQuery) => {
     if (API.now_page !== "search_page") {
         API.now_page = "search_page"
         API.pages.default_page = 1
+        wallpaper_wrap.innerHTML = ""
+    } else {
+        if (API.search_text !== searchQuery) {
+            wallpaper_wrap.innerHTML = ""
+            API.pages.search_page = 1
+        }
     }
-    
-    wallpaper_wrap.innerHTML = ""
+
     API.search_text = searchQuery
 
     const { search_page:per_page } =  API.per_page
@@ -103,7 +108,6 @@ const searchByHeading = (searchQuery) => {
     const { order_by:heading } = API
 
     const API_Link = `${API.location}search/photos?client_id=${API.client_id}&per_page=${per_page}&query=${API.search_text}&order_by=${heading}&page=${number_page}`
-    console.log(API_Link)
     callApi(API_Link, createWallpaper_box)
 }
 
@@ -115,7 +119,7 @@ const checkScroll = () => {
             listPhotoes()
         } else {
             API.pages.search_page++
-            searchByHeading(API.search_text)
+            searchByHeading(searchBar.value)
         }
     }
 }
