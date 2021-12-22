@@ -55,7 +55,7 @@ const createWallpaper_box = (responseObject) => {
     //? create box as a text 
     const new_wallpaper_box = `
         <div>
-            <img src="${responseObject.urls.small}" loading="lazy"  alt="" class="wallpaper">
+            <img src="${responseObject.urls.regular}" loading="lazy"  alt="" class="wallpaper">
         </div>
         <div>
             <div class="wallpaper-desc d-flex justify-content-between align-items-center">
@@ -96,8 +96,8 @@ const searchByHeading = (searchQuery) => {
         wallpaper_wrap.innerHTML = ""
     } else {
         if (API.search_text !== searchQuery) {
-            wallpaper_wrap.innerHTML = ""
             API.pages.search_page = 1
+            wallpaper_wrap.innerHTML = ""
         }
     }
 
@@ -113,7 +113,8 @@ const searchByHeading = (searchQuery) => {
 
 //? check scroll of document to load new images
 const checkScroll = () => {
-    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement
+    if (scrollTop + clientHeight >= scrollHeight - 5) {
         if (API.now_page === "default_page") {
             API.pages.default_page++
             listPhotoes()
