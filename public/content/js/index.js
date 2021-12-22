@@ -1,6 +1,9 @@
 const wallpaper_wrap = document.getElementById("wallpaper-wrap")
 const searchBar = document.getElementById("search-input")
 const searchSubmit = document.querySelector(".search-submit")
+const searchOrderMenu = document.querySelector(".search-order-menu")
+const searchOrderMenuItems = document.querySelectorAll(".search-order-menu-item")
+const searchOrderText = document.querySelector(".search-order-text")
 
 const API = {
     client_id: "QctSFB0DBMdKf-hcrj4HtE2s7HSl3313mvrRUa8Iauw",
@@ -60,7 +63,7 @@ const createWallpaper_box = (responseObject) => {
     //? create box as a text 
     const new_wallpaper_box = `
         <div>
-            <img src="${responseObject.urls.regular}" loading="lazy"  alt="" class="wallpaper">
+            <img src="${responseObject.urls.thumb}" loading="lazy"  alt="" class="wallpaper">
         </div>
         <div>
             <div class="wallpaper-desc d-flex justify-content-between align-items-center">
@@ -93,27 +96,23 @@ const createWallpaper_box = (responseObject) => {
     return section
 }
 
-//? search by title: latest , oldest, popular
-const searchByHeading = (searchQuery) => {
+//? search by heading: latest , oldest, popular
+const searchByHeading = (searchQuery , order_heading) => {
     if (searchQuery.trim().length !== 0) {
+        wallpaper_wrap.innerHTML = ""
+        
         if (API.now_page !== "search_page") {
             API.now_page = "search_page"
             API.pages.default_page = 1
-            wallpaper_wrap.innerHTML = ""
         } else {
-            if (API.search_text !== searchQuery) {
+            if (API.search_text !== searchQuery || order_heading !== API.order_by) {
                 API.pages.search_page = 1
-                wallpaper_wrap.innerHTML = ""
             }
         }
     
         API.search_text = searchQuery
     
-        const { search_page:per_page } =  API.per_page
-        const { search_page:number_page } = API.pages
-        const { order_by:heading } = API
-    
-        const API_Link = `${API.location}search/photos?client_id=${API.client_id}&per_page=${per_page}&query=${API.search_text}&order_by=${heading}&page=${number_page}`
+        const API_Link = `${API.location}search/photos?client_id=${API.client_id}&per_page=${API.per_page}&query=${API.search_text}&order_by=${API.order_by}&page=${API.pages.search_page}`
         callApi(API_Link, createWallpaper_box)
     } else {
         wallpaper_wrap.innerHTML = ""
@@ -125,7 +124,6 @@ const searchByHeading = (searchQuery) => {
 const checkScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement
     if (scrollTop + clientHeight >= scrollHeight - 5) {
-        console.log(1)
         if (API.now_page === "default_page") {
             API.pages.default_page++
             listPhotoes()
@@ -135,6 +133,18 @@ const checkScroll = () => {
         }
     }
 }
+
+//? change search by order
+searchOrderMenuItems.forEach(item => item.addEventListener("click", (e) => {
+    searchByHeading(searchBar.value, e.target.innerHTML)
+
+    const orderHeading = e.target.innerHTML
+    API.order_by = orderHeading
+    searchOrderText.innerHTML = "Search by " + orderHeading
+
+    searchOrderMenuItems.forEach(item =>
+        item.innerHTML === orderHeading ? item.classList.add('active') : item.classList.remove("active"))
+}))
 
 window.addEventListener("load", () => listPhotoes())
 searchSubmit.addEventListener("click", () => searchByHeading(searchBar.value))

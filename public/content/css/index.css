@@ -170,10 +170,15 @@
     transition: .4s;
     font-size: 1rem;
 }
+.search-order-menu-item.active {
+    background: var(--white);
+    color: var(--dark-blue);
+    box-shadow: 0 0 20px -2px rgba(0, 0, 0, 0.3);
+}
 .search-order-menu-item:last-child {
     margin-bottom: 12px;
 }
-.search-order-menu-item:hover {
+.search-order-menu-item:hover:not(.search-order-menu-item.active) {
     background: var(--gray);
     color: var(--dark-blue);
     box-shadow: 0 0 20px -2px rgba(0, 0, 0, 0.3);
@@ -243,7 +248,7 @@
     max-width: 1990px;
     columns: 3;
     box-sizing: border-box;
-    column-gap: 40px;
+    column-gap: 100px;
     padding-bottom: 200px;
 }
 .wallpaper-box {
