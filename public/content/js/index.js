@@ -1,52 +1,29 @@
 const wallpaper_wrap = document.getElementById("wallpaper-wrap")
-const searchBar = document.getElementById("search-input")
-const searchSubmit = document.querySelector(".search-submit")
 
 const API = {
     client_id: "QctSFB0DBMdKf-hcrj4HtE2s7HSl3313mvrRUa8Iauw",
     location: "https://api.unsplash.com/",
-    pages: {
-        search_page: 1,
-        default_page: 1,
-    },
-    per_page: {
-        search_page: 30,
-        default_page: 30
-    },
-    order_by: "popular",
-    now_page: "default_page",
-    search_text: ""
-}
-
-//? call the Api and list the images in dom
-const listPhotoes = () => {
-    const { default_page:per_page } =  API.per_page
-    const { default_page:number_page } = API.pages
-
-    const API_Link = `${API.location}/photos?client_id=${API.client_id}&per_page=${per_page}&page=${number_page}`
-    callApi(API_Link, createWallpaper_box)
+    current_page: 1 ,
+    limit: 30,
 }
 
 //? fetch api to get responses ( images )
-const callApi = (API_Link, callBack) => {
+const callApi = () => {
+    const API_Link = `${API.location}photos?client_id=${API.client_id}&per_page=${API.limit}&page=${API.current_page}`
+
     fetch(API_Link)
+        
         .then(response => {
             if (response.status === 200) return response.json()
             else throw new Error("something went wrong")
         })
+        
         .then(response => {
             const Fragment = new DocumentFragment()
-            
-            const { results } = response
-            
-            if (results) {
-                Array.from(results).forEach(obj => Fragment.append(callBack(obj)))
-                wallpaper_wrap.append(Fragment)
-            } else {
-                Array.from(response).forEach(obj => Fragment.append(callBack(obj)))
-                wallpaper_wrap.appendChild(Fragment)
-            }
+            Array.from(response).forEach(obj => Fragment.append(createWallpaper_box(obj)))
+            wallpaper_wrap.appendChild(Fragment)
         })
+        
         .catch(err => console.error(err))
 }
 
@@ -88,39 +65,13 @@ const createWallpaper_box = (responseObject) => {
     return section
 }
 
-//? search by title: latest , oldest, popular
-const searchByHeading = (searchQuery) => {
-    if (API.now_page !== "search_page") {
-        API.now_page = "search_page"
-        API.pages.default_page = 1
-    }
-    
-    wallpaper_wrap.innerHTML = ""
-    API.search_text = searchQuery
-
-    const { search_page:per_page } =  API.per_page
-    const { search_page:number_page } = API.pages
-    const { order_by:heading } = API
-
-    const API_Link = `${API.location}search/photos?client_id=${API.client_id}&per_page=${per_page}&query=${API.search_text}&order_by=${heading}&page=${number_page}`
-    console.log(API_Link)
-    callApi(API_Link, createWallpaper_box)
-}
-
 //? check scroll of document to load new images
 const checkScroll = () => {
     if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
-        if (API.now_page === "default_page") {
-            API.pages.default_page++
-            listPhotoes()
-        } else {
-            API.pages.search_page++
-            searchByHeading(API.search_text)
-        }
+        API.current_page++
+        callApi()
     }
 }
 
-window.addEventListener("load", () => listPhotoes())
-searchSubmit.addEventListener("click", () => searchByHeading(searchBar.value))
-searchBar.addEventListener("keyup", (e) => { if (e.key === "Enter") searchByHeading(searchBar.value) })
+window.addEventListener("load", callApi)
 window.addEventListener("scroll", checkScroll)
