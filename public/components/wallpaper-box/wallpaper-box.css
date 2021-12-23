@@ -1,0 +1,85 @@
+.wallpaper-box {
+    position: relative;
+    break-inside: avoid;
+    border-radius: 30px;
+    margin-bottom: 40px;
+    transition: .3s;
+    display: flex;
+    flex-direction: column;
+}
+.wallpaper-box > * {
+    z-index: 2;
+}
+.wallpaper-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    z-index: 1;
+    clip-path: circle(0 at 0 0);
+    opacity: 1;
+    transition: 0.8s;
+}
+.wallpaper {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    object-fit: cover;
+    cursor: zoom-in;
+}
+.wallpaper-box:hover {
+    padding: 20px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.wallpaper-box:hover::before {
+    background: var(--white);
+    clip-path: circle(200% at 0 0);
+    border: 1px solid var(--wallpaper-border);
+}
+.wallpaper-desc {
+    visibility: hidden;
+    opacity: 0;
+    transition: .2s;
+    margin-top: -50px;
+}
+.wallpaper-box:hover .wallpaper-desc {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    margin-top: 13px;
+}
+.user-prof {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+.user-prof img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.user-prof-name {
+    color: var(--primary-blue);
+    margin-left: 15px;
+    text-decoration: none;
+}
+.download-wallpaper-btn , .like-wallpaper-btn {
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.download-wallpaper-btn {
+    background: var(--wallpaper-bg);
+    border: 2px solid #e2e2e2;
+    padding: 4px 8px;
+}
+.like-wallpaper-btn {
+    background: var(--primary-blue);
+    margin-right: 10px;
+    padding: 5px 10px;
+    box-shadow: rgb(50, 116, 228, 0.5) 0px 3px 8px;
+}
