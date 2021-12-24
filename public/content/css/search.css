@@ -39,6 +39,7 @@
     letter-spacing: 1px;
     color: var(--white);
     width: 100%;
+    text-decoration: none;
 }
 .header-main-title span {
     color: var(--light-blue);
