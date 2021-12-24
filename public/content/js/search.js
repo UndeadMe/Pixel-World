@@ -1,3 +1,4 @@
+const searchSubmit = document.querySelector(".search-submit")
 const searchInput = document.querySelector(".search-input")
 const wrap = document.querySelector(".wallpaper-wrap")
 const searchOrderMenuItem = document.querySelectorAll(".search-order-menu-item")
@@ -15,12 +16,13 @@ const API = {
 const takeDatasFromUrl = () => {
     const params = new URLSearchParams(location.search)
     const search_query = params.get('search_query')
-    API.order_by = params.get('search_by')
+    const search_order = params.get('search_by')
     
     if (search_query) {
-        uploadSearchDataInDom(search_query)
+        changeOrder(search_order)
         callApi(search_query)
-    } else location.href = "index.html"
+    } else 
+        location.href = "index.html"
 }
 
 //? upload search datas in dom
@@ -35,7 +37,8 @@ const uploadSearchDataInDom = (searchQuery, searchTotal, searchTotalPages) => {
 //? call the Api
 const callApi = (searchQuery) => {
     const API_Link = `${API.location}search/photos?client_id=${API.client_id}&query=${searchQuery}&page=${API.current_page}&per_page=${API.limit}&order_by=${API.order_by}`
-    
+    wrap.innerHTML = ""
+
     fetch(API_Link) 
         .then(response => {
             if (response.status === 200) return response.json()
@@ -88,15 +91,24 @@ const createWallpaper_box = (responseObject) => {
     return section
 }
 
-//? change search order
-searchOrderMenuItem.forEach(orderItem => {
-    orderItem.addEventListener("click", () => {
-        API.order_by = orderItem.innerHTML
-        searchOrderText.innerHTML = `Search by ${orderItem.innerHTML}`
-        searchOrderMenuItem.forEach(item => 
-            item.innerHTML === orderItem.innerHTML ? item.classList.add('active') : item.classList.remove('active')
-        )
-    })
-})
+//? change order api
+const changeOrder = (order) => {
+    API.order_by = order
+    searchOrderText.innerHTML = `Search by ${order}`
+    searchOrderMenuItem.forEach(item => item.innerHTML === order ? item.classList.add('active') : item.classList.remove('active'))
+}
+
+//? send data to search page
+const sendToSearchPage = () => {
+    const searchQuery = searchInput.value
+    const order_by = API.order_by
+
+    //? if search bar doesn't empty redirect to search page
+    if (searchQuery.trim().length !== 0)
+        location.href = `search.html?search_query=${searchQuery}&search_by=${order_by}`
+}
 
 window.addEventListener("load", takeDatasFromUrl)
+searchSubmit.addEventListener("click", sendToSearchPage)
+searchInput.addEventListener("keyup", (e) => { if (e.key === "Enter") sendToSearchPage() })
+searchOrderMenuItem.forEach(orderItem => orderItem.addEventListener("click", () => changeOrder(orderItem.innerHTML)))
