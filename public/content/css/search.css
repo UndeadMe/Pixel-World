@@ -1,5 +1,6 @@
 @import url(../../components/custom/custom.css);
 @import url(../../components/search-bar/search-bar.css);
+@import url(../../components/wallpaper-box/wallpaper-box.css);
 
 /* ! -------------------------------- container ------------------------------- ! */
 .container {
@@ -54,7 +55,11 @@
 }
 /* ! ---------------------------------- main ---------------------------------- ! */
 .main {
-    margin-top: 50px;
+    margin-top: 100px;
+}
+.main .container {
+    flex-direction: column;
+    align-items: baseline;
 }
 .search-heading {
     display: flex;
@@ -79,4 +84,12 @@
     background: var(--gray);
     color: var(--white);
     box-shadow: 0 5px 20px var(--gray);
+}
+/* ! ----------------------------- wallpaper wrap ----------------------------- ! */
+.wallpaper-wrap {
+    columns: 3;
+    box-sizing: border-box;
+    column-gap: 40px;
+    padding-bottom: 200px;
+    margin-top: 100px;
 }

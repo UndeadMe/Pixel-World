@@ -61,7 +61,7 @@ const createWallpaper_box = (responseObject) => {
         </div>
     `
     //? create section
-    const section = document.createElement("div")
+    const section = document.createElement("section")
     section.classList.add("wallpaper-box")
     //? append box before end of section
     section.insertAdjacentHTML("beforeend", new_wallpaper_box)
