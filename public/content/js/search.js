@@ -1,5 +1,7 @@
 const searchInput = document.querySelector(".search-input")
 const wrap = document.querySelector(".wallpaper-wrap")
+const searchOrderMenuItem = document.querySelectorAll(".search-order-menu-item")
+const searchOrderText = document.querySelector(".search-order-text")
 
 const API = {
     client_id: "QctSFB0DBMdKf-hcrj4HtE2s7HSl3313mvrRUa8Iauw",
@@ -85,5 +87,16 @@ const createWallpaper_box = (responseObject) => {
     section.insertAdjacentHTML("beforeend", new_wallpaper_box)
     return section
 }
+
+//? change search order
+searchOrderMenuItem.forEach(orderItem => {
+    orderItem.addEventListener("click", () => {
+        API.order_by = orderItem.innerHTML
+        searchOrderText.innerHTML = `Search by ${orderItem.innerHTML}`
+        searchOrderMenuItem.forEach(item => 
+            item.innerHTML === orderItem.innerHTML ? item.classList.add('active') : item.classList.remove('active')
+        )
+    })
+})
 
 window.addEventListener("load", takeDatasFromUrl)

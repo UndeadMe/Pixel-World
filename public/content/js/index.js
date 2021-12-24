@@ -1,6 +1,8 @@
 const wallpaper_wrap = document.getElementById("wallpaper-wrap")
 const searchSubmit = document.querySelector(".search-submit")
 const searchInput = document.getElementById("search-input")
+const searchOrderMenuItem = document.querySelectorAll(".search-order-menu-item")
+const searchOrderText = document.querySelector(".search-order-text")
 
 const API = {
     client_id: "QctSFB0DBMdKf-hcrj4HtE2s7HSl3313mvrRUa8Iauw",
@@ -85,6 +87,17 @@ const sendToSearchPage = () => {
     if (searchQuery.trim().length !== 0)
         location.href = `search.html?search_query=${searchQuery}&search_by=${order_by}`
 }
+
+//? change search order
+searchOrderMenuItem.forEach(orderItem => {
+    orderItem.addEventListener("click", () => {
+        API.order_by = orderItem.innerHTML
+        searchOrderText.innerHTML = `Search by ${orderItem.innerHTML}`
+        searchOrderMenuItem.forEach(item => 
+            item.innerHTML === orderItem.innerHTML ? item.classList.add('active') : item.classList.remove('active')
+        )
+    })
+})
 
 window.addEventListener("load", callApi)
 window.addEventListener("scroll", checkScroll)
