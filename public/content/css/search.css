@@ -52,3 +52,31 @@
 .search-bar {
     width: 100%;
 }
+/* ! ---------------------------------- main ---------------------------------- ! */
+.main {
+    margin-top: 50px;
+}
+.search-heading {
+    display: flex;
+    align-items: center;
+}
+.search-result-title {
+    font-size: 2rem;
+    color: var(--dark-blue);
+}
+.badge {
+    margin-left: 20px;
+    padding: 5px 7px;
+    font-size: 15px;
+    border-radius: 5px;
+}
+.badge-primary {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    box-shadow: 0 5px 20px -2px var(--primary-blue);
+}
+.badge-secondary {
+    background: var(--gray);
+    color: var(--white);
+    box-shadow: 0 5px 20px var(--gray);
+}

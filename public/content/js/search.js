@@ -9,6 +9,7 @@ const takeDatasFromUrl = () => {
     if (!search_query) location.href = "index.html"
 
     searchInput.value = search_query
+    document.title = `Pixel World - ${search_query}`
 }
 
 window.addEventListener("load", takeDatasFromUrl)
