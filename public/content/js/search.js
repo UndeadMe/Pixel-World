@@ -36,8 +36,9 @@ const uploadSearchDataInDom = (searchQuery, searchTotal, searchTotalPages) => {
 
 //? call the Api
 const callApi = (searchQuery) => {
+    if (searchQuery !== searchInput.value) wrap.innerHTML = ""
+
     const API_Link = `${API.location}search/photos?client_id=${API.client_id}&query=${searchQuery}&page=${API.current_page}&per_page=${API.limit}&order_by=${API.order_by}`
-    wrap.innerHTML = ""
 
     fetch(API_Link) 
         .then(response => {
@@ -108,7 +109,16 @@ const sendToSearchPage = () => {
         location.href = `search.html?search_query=${searchQuery}&search_by=${order_by}`
 }
 
+//? check scroll of document to load new images
+const checkScroll = () => {
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+        API.current_page++
+        callApi(searchInput.value)
+    }
+}
+
 window.addEventListener("load", takeDatasFromUrl)
+window.addEventListener("scroll", checkScroll)
 searchSubmit.addEventListener("click", sendToSearchPage)
 searchInput.addEventListener("keyup", (e) => { if (e.key === "Enter") sendToSearchPage() })
 searchOrderMenuItem.forEach(orderItem => orderItem.addEventListener("click", () => changeOrder(orderItem.innerHTML)))
