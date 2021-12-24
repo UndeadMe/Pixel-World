@@ -1,10 +1,13 @@
 const wallpaper_wrap = document.getElementById("wallpaper-wrap")
+const searchSubmit = document.querySelector(".search-submit")
+const searchInput = document.getElementById("search-input")
 
 const API = {
     client_id: "QctSFB0DBMdKf-hcrj4HtE2s7HSl3313mvrRUa8Iauw",
     location: "https://api.unsplash.com/",
     current_page: 1 ,
     limit: 30,
+    order_by: "latest"
 }
 
 //? fetch api to get responses ( images )
@@ -73,5 +76,17 @@ const checkScroll = () => {
     }
 }
 
+//? send data to search page
+const sendToSearchPage = () => {
+    const searchQuery = searchInput.value
+    const order_by = API.order_by
+
+    //? if search bar doesn't empty redirect to search page
+    if (searchQuery.trim().length !== 0)
+        location.href = `search.html?search_query=${searchQuery}&search_by=${order_by}`
+}
+
 window.addEventListener("load", callApi)
 window.addEventListener("scroll", checkScroll)
+searchSubmit.addEventListener("click", sendToSearchPage)
+searchInput.addEventListener("keyup", (e) => { if (e.key === "Enter") sendToSearchPage() })
