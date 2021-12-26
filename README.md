@@ -10,7 +10,7 @@ I only used these:
 # Installation 🔨⚙
 Installation steps are so easy: <br>
 &nbsp;&nbsp;&nbsp;&nbsp;1.open cmd or terminal and type this command:
-    <pre>clone https://github.com/Banana021s/Pixel-World.git</pre>
+    <pre>git clone https://github.com/Banana021s/Pixel-World.git</pre>
 &nbsp;&nbsp;&nbsp;&nbsp;2. open index.html and search your pixel
 # Features 🎆🎇
   - Cool Ui 🎨✨
