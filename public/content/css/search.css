@@ -59,6 +59,15 @@
 .search-bar {
     width: 100%;
 }
+/* ! ------------------------------- search icon ------------------------------ ! */
+.search-icon-responsive {
+    background: var(--primary-blue);
+    padding: 10px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px -3px var(--primary-blue);
+    cursor: pointer;
+    display: none;
+}
 /* ! ---------------------------------- main ---------------------------------- ! */
 .main {
     margin-top: 100px;
@@ -131,5 +140,8 @@
     }
     .header-main-title {
         width: 100%;
+    }
+    .search-icon-responsive {
+        display: block;
     }
 }
