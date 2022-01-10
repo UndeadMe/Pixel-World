@@ -10,6 +10,7 @@
     padding: 0 40px;
     display: flex;
     align-items: center;
+    column-gap: 50px;
 }
 /* ! --------------------------------- header --------------------------------- ! */
 .header {
@@ -100,4 +101,35 @@
     column-gap: 40px;
     padding-bottom: 200px;
     margin-top: 100px;
+}
+/* ! ------------------------------- media query ------------------------------ ! */
+@media screen and ( max-width: 1080px ) {
+    .wallpaper-wrap {
+        columns: 2;
+    }
+    .header-main-title {
+        width: 50%;
+    }
+}
+@media screen and ( max-width: 840px ) {
+    .search-input {
+        padding-right: 0 !important;
+    }
+    .search-order-text {
+        display: none;
+    }
+    .search-order-menu {
+        width: 150px;
+    }
+}
+@media screen and ( max-width: 700px ) {
+    .wallpaper-wrap {
+        columns: 1;
+    }
+    .search-box {
+        display: none;
+    }
+    .header-main-title {
+        width: 100%;
+    }
 }
