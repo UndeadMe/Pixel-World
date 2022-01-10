@@ -132,3 +132,60 @@
     column-gap: 40px;
     padding-bottom: 200px;
 }
+/* ! ------------------------------- media query ------------------------------ ! */
+@media screen and ( max-width: 1024px ) {
+    .main-wrap {
+        columns: 2;
+    }
+    .search-bar {
+        width: 70%;
+    }
+}
+@media screen and ( max-width: 855px ) {
+    .main-header-title {
+        font-size: 2rem;
+    }
+}
+@media screen and ( max-width: 707px ) {
+    .main-header-title {
+        text-align: center;
+        line-height: 50px;
+    }
+    .sign-up-sign-in-box {
+        display: none;
+    }
+    .navbar {
+        flex-direction: row-reverse;
+    }
+    .main-wrap {
+        columns: 1;
+    }
+    .search-input {
+        padding-right: 0 !important;
+    }
+    .search-order-text {
+        display: none;
+    }
+    .search-order-menu {
+        width: 150px;
+    }
+}
+@media screen and ( max-width: 550px ) {
+    .search-bar {
+        width: 100%;
+    }
+    .created-by__title {
+        display: none;
+    }
+    .unsplash_Api {
+        display: none;
+    }
+}
+@media screen and ( max-width: 510px ) {
+    .github-btn {
+        display: none;
+    }
+    .navbar {
+        justify-content: center;
+    }
+}
