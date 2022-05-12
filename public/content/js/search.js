@@ -35,23 +35,24 @@ const uploadSearchDataInDom = (searchQuery, searchTotal, searchTotalPages) => {
 }
 
 //? call the Api
-const callApi = (searchQuery) => {
-    if (searchQuery !== searchInput.value) wrap.innerHTML = ""
+const callApi = async (searchQuery) => {
+    searchQuery !== searchInput.value && (
+        wrap.innerHTML = ""
+    )
 
     const API_Link = `${API.location}search/photos?client_id=${API.client_id}&query=${searchQuery}&page=${API.current_page}&per_page=${API.limit}&order_by=${API.order_by}`
 
-    fetch(API_Link) 
-        .then(response => {
-            if (response.status === 200) return response.json()
-            else throw new Error("something went wrong")
-        })
-        .then(response => {
-            uploadSearchDataInDom(searchQuery, response.total, response.total_pages)
-            const Fragment = new DocumentFragment()
-            response.results.forEach(responseItem => Fragment.appendChild(createWallpaper_box(responseItem)))
-            wrap.appendChild(Fragment)
-        })
-        .catch(err => console.log(err))
+    try {
+        const response = await fetch(API_Link)
+        if (response.status !== 200) throw new Error("something went wrong")
+        const responseJson = await response.json()
+        uploadSearchDataInDom(searchQuery, responseJson.total, responseJson.total_pages)
+        const Fragment = new DocumentFragment()
+        responseJson.results.forEach(responseItem => Fragment.appendChild(createWallpaper_box(responseItem)))
+        wrap.appendChild(Fragment)
+    } catch(err) {
+        console.error(err.message)
+    }
 }
 
 //? create wallpaper box

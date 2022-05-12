@@ -13,23 +13,19 @@ const API = {
 }
 
 //? fetch api to get responses ( images )
-const callApi = () => {
+const callApi = async () => {
     const API_Link = `${API.location}photos?client_id=${API.client_id}&per_page=${API.limit}&page=${API.current_page}`
-
-    fetch(API_Link)
-        
-        .then(response => {
-            if (response.status === 200) return response.json()
-            else throw new Error("something went wrong")
-        })
-        
-        .then(response => {
-            const Fragment = new DocumentFragment()
-            Array.from(response).forEach(obj => Fragment.append(createWallpaper_box(obj)))
-            wallpaper_wrap.appendChild(Fragment)
-        })
-        
-        .catch(err => console.error(err))
+    
+    try {
+        const response = await fetch(API_Link)
+        if (response.status !== 200) throw new Error("something went wrong")
+        const responseJson = await response.json()
+        const Fragment = new DocumentFragment()
+        Array.from(responseJson).forEach(obj => Fragment.append(createWallpaper_box(obj)))
+        wallpaper_wrap.appendChild(Fragment)
+    } catch(err) {
+        console.error(err.message)
+    }
 }
 
 //? create wallpaper box 

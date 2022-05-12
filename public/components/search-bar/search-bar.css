@@ -10,7 +10,7 @@
     background: var(--white);
     width: 50%;
     height: 60px;
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 0 10px 0 12px;
     position: relative;
     box-shadow: 0 10px 60px -20px var(--white);
@@ -37,7 +37,7 @@
     border: none;
     outline: none;
     padding: 8px;
-    border-radius: 10px;
+    border-radius: 13px;
     cursor: pointer;
     background: var(--primary-blue);
     position: absolute;
